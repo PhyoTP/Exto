@@ -6,15 +6,9 @@ using UnityEngine.TextCore.Text;
 
 public class CharacterScript : MonoBehaviour
 {
-    private GameObject camera;
     public float moveSpeed;
     // public AudioClip clip;
     // private bool death = false;
-    // Start is called before the first frame update
-    void Start()
-    {
-        camera = GameObject.Find("Main Camera");
-    }
 
     // Update is called once per frame
     void Update()
