@@ -32,4 +32,11 @@ public class CharacterScript : MonoBehaviour
             gameObject.GetComponent<Rigidbody>().AddForce(Vector3.up*5, ForceMode.Impulse);
         }
     }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.collider.CompareTag("Beam"))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+    }
 }
