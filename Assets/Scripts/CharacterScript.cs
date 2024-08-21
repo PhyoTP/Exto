@@ -6,10 +6,9 @@ using UnityEngine.TextCore.Text;
 
 public class CharacterScript : MonoBehaviour
 {
-    public float moveSpeed;
-    // public AudioClip clip;
-    // private bool death = false;
-
+    public float moveSpeed = 5;
+    public string nextScene;
+    private bool inAir;
     // Update is called once per frame
     void Update()
     {
@@ -18,17 +17,11 @@ public class CharacterScript : MonoBehaviour
         //mouse control
         gameObject.transform.Rotate(-transform.eulerAngles.x, Input.GetAxis("Mouse X"), -transform.eulerAngles.z);
         //respawn
-        // if (transform.localPosition.y < -10 && !death)
-        // {
-        //     //AudioSource.PlayClipAtPoint(clip, transform.position);
-        //     print("bong");
-        //     death = true;
-        // }
         if (transform.localPosition.y < -10)
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
-        if (Input.GetKeyDown(KeyCode.Space)){
+        if (Input.GetKeyDown(KeyCode.Space) && !inAir){
             gameObject.GetComponent<Rigidbody>().AddForce(Vector3.up*5, ForceMode.Impulse);
         }
     }
@@ -38,5 +31,16 @@ public class CharacterScript : MonoBehaviour
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
+        if (collision.collider.CompareTag("Finish"))
+        {
+            SceneManager.LoadScene(nextScene);
+        }else
+        {
+            inAir = false;
+        }
+    }
+    private void OnCollisionExit(Collision collision)
+    {
+        inAir = true;
     }
 }
